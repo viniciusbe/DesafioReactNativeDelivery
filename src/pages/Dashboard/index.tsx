@@ -1,8 +1,11 @@
+/* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
 import { Image, ScrollView } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
+import { normalizeText } from 'normalize-text';
+
 import Logo from '../../assets/logo-header.png';
 import SearchInput from '../../components/SearchInput';
 
@@ -51,15 +54,38 @@ const Dashboard: React.FC = () => {
   >();
   const [searchValue, setSearchValue] = useState('');
 
-  const navigation = useNavigation();
+  const { navigate } = useNavigation();
 
   async function handleNavigate(id: number): Promise<void> {
-    // Navigate do ProductDetails page
+    navigate(`FoodDetails`, { id })
   }
 
   useEffect(() => {
     async function loadFoods(): Promise<void> {
-      // Load Foods from API
+      // const { data } = await api.get<Food[]>('/foods');
+
+      // selectedCategory
+      //   ? setFoods(data.filter(foodData => foodData.id === selectedCategory))
+      //   : setFoods(
+      //     data.filter(foodData =>
+      //       normalizeText(foodData.name).includes(normalizeText(searchValue)),
+      //     ),
+      //   );
+
+      try {
+        const { data } = await api.get('foods', {
+          params: {
+            category_like: selectedCategory,
+            name_like: searchValue,
+          },
+        });
+
+
+
+        setFoods(data);
+      } catch (err) {
+        console.log(err);
+      }
     }
 
     loadFoods();
@@ -67,14 +93,17 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     async function loadCategories(): Promise<void> {
-      // Load categories from API
+      const { data } = await api.get('/categories');
+
+      setCategories(data);
     }
 
     loadCategories();
   }, []);
 
   function handleSelectCategory(id: number): void {
-    // Select / deselect category
+    id === selectedCategory ? setSelectedCategory(undefined) :
+      setSelectedCategory(id);
   }
 
   return (
@@ -85,7 +114,7 @@ const Dashboard: React.FC = () => {
           name="log-out"
           size={24}
           color="#FFB84D"
-          onPress={() => navigation.navigate('Home')}
+          onPress={() => navigate('Home')}
         />
       </Header>
       <FilterContainer>
