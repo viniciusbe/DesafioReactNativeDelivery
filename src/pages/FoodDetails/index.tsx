@@ -1,10 +1,4 @@
-import React, {
-  useEffect,
-  useState,
-  useCallback,
-  useMemo,
-  useLayoutEffect,
-} from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { Image } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Feather';
@@ -37,6 +31,9 @@ import {
   FinishOrderButton,
   ButtonText,
   IconContainer,
+  ConfirmationModal,
+  ModalView,
+  ModalText,
 } from './styles';
 
 interface Params {
@@ -58,6 +55,7 @@ interface Food {
   image_url: string;
   formattedPrice: string;
   extras: Extra[];
+  created_at: Date;
 }
 
 const FoodDetails: React.FC = () => {
@@ -65,6 +63,7 @@ const FoodDetails: React.FC = () => {
   const [extras, setExtras] = useState<Extra[]>([]);
   const [isFavorite, setIsFavorite] = useState(false);
   const [foodQuantity, setFoodQuantity] = useState(1);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const navigation = useNavigation();
   const route = useRoute();
@@ -75,7 +74,15 @@ const FoodDetails: React.FC = () => {
     async function loadFood(): Promise<void> {
       const { data } = await api.get<Food>(`/foods/${routeParams.id}`);
 
-      setFood(data);
+      const favoritesResponse = await api.get<Omit<Food, 'extras'>[]>(
+        '/favorites',
+      );
+
+      favoritesResponse.data.forEach(
+        favorite => favorite.id === data.id && setIsFavorite(true),
+      );
+
+      setFood({ ...data, price: Number(data.price) });
       setExtras(data.extras.map(extra => ({ ...extra, quantity: 0 })));
     }
 
@@ -114,8 +121,12 @@ const FoodDetails: React.FC = () => {
       : setFoodQuantity(foodQuantity);
   }
 
-  const toggleFavorite = useCallback(() => {
-    setIsFavorite(state => !state);
+  const toggleFavorite = useCallback(async () => {
+    isFavorite
+      ? await api.delete(`/favorites/${food.id}`)
+      : await api.post('/favorites', { ...food, extras: undefined });
+
+    setIsFavorite(!isFavorite);
   }, [isFavorite, food]);
 
   const cartTotal = useMemo(() => {
@@ -126,9 +137,22 @@ const FoodDetails: React.FC = () => {
     return formatValue((extrasTotal + food.price) * foodQuantity);
   }, [extras, food, foodQuantity]);
 
-  async function handleFinishOrder(): Promise<void> {
-    // Finish the order and save on the API
-  }
+  const handleFinishOrder = useCallback(async () => {
+    await api.post('/orders', {
+      ...food,
+      id: undefined,
+      product_id: food.id,
+      quantity: foodQuantity,
+      extras,
+      created_at: new Date(),
+    });
+
+    setModalVisible(!modalVisible);
+
+    setTimeout(() => {
+      navigation.navigate('Orders');
+    }, 2000);
+  }, [extras, food, foodQuantity, modalVisible, navigation]);
 
   // Calculate the correct icon name
   const favoriteIconName = useMemo(
@@ -136,7 +160,7 @@ const FoodDetails: React.FC = () => {
     [isFavorite],
   );
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     // Add the favorite icon on the right of the header bar
     navigation.setOptions({
       headerRight: () => (
@@ -144,7 +168,7 @@ const FoodDetails: React.FC = () => {
           name={favoriteIconName}
           size={24}
           color="#FFB84D"
-          onPress={() => toggleFavorite()}
+          onPress={toggleFavorite}
         />
       ),
     });
@@ -152,6 +176,25 @@ const FoodDetails: React.FC = () => {
 
   return (
     <Container>
+      <ConfirmationModal
+        animationType="fade"
+        transparent
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <ModalView>
+          <Icon
+            size={48}
+            color="#39B100"
+            name="thumbs-up"
+            onPress={() => navigation.navigate('Orders')}
+          />
+          <ModalText>Pedido confirmado!</ModalText>
+        </ModalView>
+      </ConfirmationModal>
+
       <Header />
 
       <ScrollContainer>
@@ -224,7 +267,7 @@ const FoodDetails: React.FC = () => {
             </QuantityContainer>
           </PriceButtonContainer>
 
-          <FinishOrderButton onPress={() => handleFinishOrder()}>
+          <FinishOrderButton onPress={handleFinishOrder}>
             <ButtonText>Confirmar pedido</ButtonText>
             <IconContainer>
               <Icon name="check-square" size={24} color="#fff" />

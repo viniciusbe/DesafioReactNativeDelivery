@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Image } from 'react-native';
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 import api from '../../services/api';
 import formatValue from '../../utils/formatValue';
@@ -23,8 +25,17 @@ interface Food {
   name: string;
   description: string;
   price: number;
-  formattedPrice: string;
+  quantity: number;
+  total: string;
   thumbnail_url: string;
+  extras: Extra[];
+  created_at: Date;
+  formattedDate: string;
+}
+
+interface Extra {
+  value: number;
+  quantity: number;
 }
 
 const Orders: React.FC = () => {
@@ -32,9 +43,23 @@ const Orders: React.FC = () => {
 
   useEffect(() => {
     async function loadOrders(): Promise<void> {
-      const { data } = await api.get('/orders');
+      const { data } = await api.get<Food[]>('/orders');
 
-      setOrders(data);
+      setOrders(
+        data.map(order => {
+          const extrasTotal = order.extras.reduce((acc, current) => {
+            return acc + current.quantity * current.value;
+          }, 0);
+
+          return {
+            ...order,
+            total: formatValue((extrasTotal + order.price) * order.quantity),
+            formattedDate: format(order.created_at, "'dia' dd 'de' MMMM", {
+              locale: ptBR,
+            }),
+          };
+        }),
+      );
     }
 
     loadOrders();
@@ -48,7 +73,7 @@ const Orders: React.FC = () => {
 
       <FoodsContainer>
         <FoodList
-          data={orders}
+          data={orders.reverse()}
           keyExtractor={item => String(item.id)}
           renderItem={({ item }) => (
             <Food key={item.id} activeOpacity={0.6}>
@@ -61,7 +86,7 @@ const Orders: React.FC = () => {
               <FoodContent>
                 <FoodTitle>{item.name}</FoodTitle>
                 <FoodDescription>{item.description}</FoodDescription>
-                <FoodPricing>{item.formattedPrice}</FoodPricing>
+                <FoodPricing>{item.total}</FoodPricing>
               </FoodContent>
             </Food>
           )}

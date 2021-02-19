@@ -21,6 +21,9 @@ const TabRoutes: React.FC = () => (
       },
       inactiveTintColor: '#B7B7CC',
     }}
+    screenOptions={{
+      unmountOnBlur: true,
+    }}
   >
     <Tab.Screen
       options={{

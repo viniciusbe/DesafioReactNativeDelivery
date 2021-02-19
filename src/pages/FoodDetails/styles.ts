@@ -171,3 +171,22 @@ export const IconContainer = styled.View`
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
 `;
+
+export const ConfirmationModal = styled.Modal``;
+
+export const ModalView = styled.View`
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+
+  background-color: black;
+  opacity: 0.9;
+`;
+
+export const ModalText = styled.Text`
+  color: #fff;
+  font-family: 'Poppins-Regular';
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 32px;
+`;

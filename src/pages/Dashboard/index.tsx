@@ -4,13 +4,12 @@ import { Image, ScrollView } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
-import { normalizeText } from 'normalize-text';
 
+import formatValue from '../../utils/formatValue';
 import Logo from '../../assets/logo-header.png';
 import SearchInput from '../../components/SearchInput';
 
 import api from '../../services/api';
-import formatValue from '../../utils/formatValue';
 
 import {
   Container,
@@ -62,27 +61,16 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     async function loadFoods(): Promise<void> {
-      // const { data } = await api.get<Food[]>('/foods');
-
-      // selectedCategory
-      //   ? setFoods(data.filter(foodData => foodData.id === selectedCategory))
-      //   : setFoods(
-      //     data.filter(foodData =>
-      //       normalizeText(foodData.name).includes(normalizeText(searchValue)),
-      //     ),
-      //   );
 
       try {
-        const { data } = await api.get('foods', {
+        const { data } = await api.get<Food[]>('foods', {
           params: {
             category_like: selectedCategory,
             name_like: searchValue,
           },
         });
 
-
-
-        setFoods(data);
+        setFoods(data.map(food => ({ ...food, formattedPrice: formatValue(food.price) })));
       } catch (err) {
         console.log(err);
       }
