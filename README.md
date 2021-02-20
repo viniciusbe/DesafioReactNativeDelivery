@@ -7,11 +7,11 @@
 <p align="center"> mobile version of GoRestaurant, application for food orders
 </p>
 
-[![GitHub license](https://img.shields.io/github/license/viniciusbe/GoRestaurant-app?color=%23C72828)](https://github.com/viniciusbe/GoBarber-web/blob/master/LICENSE) 
+[![GitHub license](https://img.shields.io/github/license/viniciusbe/GoRestaurant-app?color=%23C72828)](https://github.com/viniciusbe/GoRestaurant-app/blob/master/LICENSE) 
 [![Badge](https://img.shields.io/badge/made%20by-Vin%C3%ADcius%20Bernardes-%23C72828)](https://github.com/viniciusbe) 
  
  
-### [See the web application here](https://gobarber.vibesa.online/) 
+### [See the web application here](https://github.com/viniciusbe/GoRestaurant-web) 
 
 ## ▶ Preview
 
