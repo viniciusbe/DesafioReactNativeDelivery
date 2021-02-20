@@ -59,7 +59,7 @@ const Favorites: React.FC = () => {
 
       <FoodsContainer>
         <FoodList
-          data={favorites}
+          data={favorites.reverse()}
           keyExtractor={item => String(item.id)}
           renderItem={({ item }) => (
             <Food activeOpacity={0.6} onPress={() => handleNavigate(item.id)}>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Image } from 'react-native';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { useNavigation } from '@react-navigation/native';
 
 import api from '../../services/api';
 import formatValue from '../../utils/formatValue';
@@ -18,6 +19,7 @@ import {
   FoodTitle,
   FoodDescription,
   FoodPricing,
+  FoodDate,
 } from './styles';
 
 interface Food {
@@ -29,7 +31,7 @@ interface Food {
   total: string;
   thumbnail_url: string;
   extras: Extra[];
-  created_at: Date;
+  created_at: string;
   formattedDate: string;
 }
 
@@ -40,6 +42,8 @@ interface Extra {
 
 const Orders: React.FC = () => {
   const [orders, setOrders] = useState<Food[]>([]);
+
+  const { navigate } = useNavigation();
 
   useEffect(() => {
     async function loadOrders(): Promise<void> {
@@ -54,7 +58,7 @@ const Orders: React.FC = () => {
           return {
             ...order,
             total: formatValue((extrasTotal + order.price) * order.quantity),
-            formattedDate: format(order.created_at, "'dia' dd 'de' MMMM", {
+            formattedDate: format(Date.parse(order.created_at), 'dd/MM/yy', {
               locale: ptBR,
             }),
           };
@@ -64,6 +68,10 @@ const Orders: React.FC = () => {
 
     loadOrders();
   }, []);
+
+  async function handleNavigate(id: number): Promise<void> {
+    navigate(`OrderDetails`, { id });
+  }
 
   return (
     <Container>
@@ -76,7 +84,11 @@ const Orders: React.FC = () => {
           data={orders.reverse()}
           keyExtractor={item => String(item.id)}
           renderItem={({ item }) => (
-            <Food key={item.id} activeOpacity={0.6}>
+            <Food
+              key={item.id}
+              activeOpacity={0.6}
+              onPress={() => handleNavigate(item.id)}
+            >
               <FoodImageContainer>
                 <Image
                   style={{ width: 88, height: 88 }}
@@ -87,6 +99,7 @@ const Orders: React.FC = () => {
                 <FoodTitle>{item.name}</FoodTitle>
                 <FoodDescription>{item.description}</FoodDescription>
                 <FoodPricing>{item.total}</FoodPricing>
+                <FoodDate>{item.formattedDate}</FoodDate>
               </FoodContent>
             </Food>
           )}

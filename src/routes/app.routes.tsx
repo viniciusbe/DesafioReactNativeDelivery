@@ -7,6 +7,7 @@ import TabRoutes from './tab.routes';
 
 import Home from '../pages/Home';
 import FoodDetails from '../pages/FoodDetails';
+import OrderDetails from '../pages/OrderDetails';
 
 const App = createStackNavigator();
 
@@ -49,6 +50,35 @@ const AppRoutes: React.FC = () => (
             marginRight: 24,
           },
           headerTitle: 'Prato - Massas',
+          headerTitleStyle: {
+            color: '#fff',
+            fontFamily: 'Poppins-Regular',
+            fontSize: 16,
+          },
+          headerStyle: {
+            backgroundColor: '#C72828',
+            elevation: 0,
+            borderWidth: 0,
+            shadowColor: 'transparent',
+          },
+        })}
+      />
+      <App.Screen
+        name="OrderDetails"
+        component={OrderDetails}
+        options={({ navigation }) => ({
+          headerLeft: () => (
+            <Icon
+              name="arrow-left"
+              size={24}
+              color="#FFB84D"
+              onPress={() => navigation.goBack()}
+            />
+          ),
+          headerLeftContainerStyle: {
+            marginLeft: 24,
+          },
+          headerTitle: 'Detalhes do pedido',
           headerTitleStyle: {
             color: '#fff',
             fontFamily: 'Poppins-Regular',

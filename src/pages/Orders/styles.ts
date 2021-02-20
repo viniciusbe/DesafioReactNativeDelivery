@@ -8,6 +8,7 @@ interface Product {
   price: number;
   total: string;
   thumbnail_url: string;
+  formattedDate: string;
 }
 
 export const Container = styled.View`
@@ -67,7 +68,7 @@ export const FoodImageContainer = styled.View`
 export const FoodContent = styled.View`
   flex: 1;
 
-  padding: 16px;
+  padding: 16px 16px 0;
 `;
 export const FoodTitle = styled.Text`
   font-family: 'Poppins-Regular';
@@ -102,4 +103,13 @@ export const FoodPricing = styled.Text`
   font-weight: 600;
 
   color: #39b100;
+`;
+
+export const FoodDate = styled.Text`
+  font-family: 'Poppins-Regular';
+  align-self: flex-end;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  color: #6c6c80;
 `;

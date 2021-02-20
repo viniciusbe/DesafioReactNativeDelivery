@@ -82,12 +82,16 @@ const FoodDetails: React.FC = () => {
         favorite => favorite.id === data.id && setIsFavorite(true),
       );
 
-      setFood({ ...data, price: Number(data.price) });
+      setFood({
+        ...data,
+        price: Number(data.price),
+        formattedPrice: formatValue(food.price),
+      });
       setExtras(data.extras.map(extra => ({ ...extra, quantity: 0 })));
     }
 
     loadFood();
-  }, [routeParams]);
+  }, [food.price, routeParams.id]);
 
   function handleIncrementExtra(id: number): void {
     setExtras(
