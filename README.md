@@ -18,13 +18,13 @@
 
 <p align="center">
   <a href="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828797.png">
-    <img width="290" src="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828797.png" title="Home" /></a>
+    <img width="250" src="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828797.png" title="Home" /></a>
     
   <a href="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828825.png">
-    <img width="290" src="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828825.png" title="Home" /></a>
+    <img width="250" src="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828825.png" title="Home" /></a>
     
   <a href="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828828.png">
-    <img width="290" src="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828828.png" title="Home" /></a>
+    <img width="250" src="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828828.png" title="Home" /></a>
 </p>
 
 <p align="center">
