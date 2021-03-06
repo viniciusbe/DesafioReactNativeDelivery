@@ -4,7 +4,7 @@
 </p>
 
 
-<p align="center"> mobile version of GoRestaurant, application for food orders
+<p align="center"> A simple app for food orders
 </p>
 
 [![GitHub license](https://img.shields.io/github/license/viniciusbe/GoRestaurant-app?color=%23C72828)](https://github.com/viniciusbe/GoRestaurant-app/blob/master/LICENSE) 
