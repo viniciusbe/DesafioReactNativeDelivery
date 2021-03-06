@@ -18,24 +18,24 @@
 
 <p align="center">
   <a href="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828797.png">
-    <img width="250" src="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828797.png" title="Home" /></a>
+    <img width="250" src="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828797.png" title="Landing page" /></a>
     
   <a href="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828825.png">
-    <img width="250" src="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828825.png" title="Home" /></a>
+    <img width="250" src="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828825.png" title="Home page" /></a>
     
   <a href="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828828.png">
-    <img width="250" src="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828828.png" title="Home" /></a>
+    <img width="250" src="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828828.png" title="Orderss page" /></a>
 </p>
 
 <p align="center">
   <a href="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828831.png">
-    <img width="250" src="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828831.png" title="Home" /></a>
+    <img width="250" src="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828831.png" title="Favorites page" /></a>
     
   <a href="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828864.png">
-    <img width="250" src="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828864.png" title="Home" /></a>
+    <img width="250" src="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828864.png" title="Order confirmation page" /></a>
     
   <a href="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828845.png">
-    <img width="250" src="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828845.png" title="Home" /></a>
+    <img width="250" src="https://github.com/viniciusbe/GoRestaurant-app/blob/master/.github/Screenshot_1613828845.png" title="Orders Details page" /></a>
 </p>
 
 
